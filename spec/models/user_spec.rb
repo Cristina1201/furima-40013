@@ -111,6 +111,12 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Password is invalid. Include both letters and numbers")
       end
 
+      it 'emailが空だと登録できない' do
+        @user.email = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Email can't be blank")
+      end
+
       it 'メールアドレスが空だと登録できない' do
         @user.email = ''
         @user.valid?
