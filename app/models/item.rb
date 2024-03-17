@@ -1,5 +1,12 @@
 class Item < ApplicationRecord
 
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to :category
+  belongs_to :condition
+  belongs_to :postage
+  belongs_to :ship_from_location_
+  belongs_to :shipping_day_id
+
   belongs_to :user
   has_one_attached :image
 
