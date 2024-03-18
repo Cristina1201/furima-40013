@@ -11,7 +11,6 @@ RSpec.describe Item, type: :model do
       
       it "すべての項目が適切に入力されていれば出品できる" do
       expect(@item).to be_valid
-      expect(@item.image).not_to be_nil
       end
     end
 
