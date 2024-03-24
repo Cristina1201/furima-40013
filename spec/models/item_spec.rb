@@ -58,10 +58,10 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Postage can't be blank")
       end
 
-      it "ship_from_locationが空だと保存できない" do
-        @item.ship_from_location = nil  
+      it "prefectureが空だと保存できない" do
+        @item.prefecture = nil  
         @item.valid?
-        expect(@item.errors.full_messages).to include("Ship from location can't be blank")
+        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
 
       it "shipping_dayが空だと保存できない" do
@@ -112,10 +112,10 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Postage can't be blank")
       end
 
-      it "ship_from_locationが「---」を選択した状態だと保存できない" do
-        @item.ship_from_location_id = ShipFromLocation.find_by(name: '---').id 
+      it "prefectureが「---」を選択した状態だと保存できない" do
+        @item.prefecture_id = Prefecture.find_by(name: '---').id 
         @item.valid?
-        expect(@item.errors.full_messages).to include("Ship from location can't be blank")
+        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
 
       it "shipping_dayが空だと保存できない" do
