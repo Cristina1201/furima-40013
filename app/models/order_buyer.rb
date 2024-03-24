@@ -7,16 +7,15 @@ class OrderBuyer
     validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
     validates :city
     validates :address
-    validates :building_name
     validates :phone_number, format: { with: /\A\d{10,11}\z/, message: "should be 10 or 11 digits" }
     validates :user_id
     validates :item_id
   end
 
   def save
-    order = Order.create(user_id: user_id, item_id: item_id)
-    Buyer.create(order_id: order.id, post_code: post_code, prefecture_id: prefecture_id, city: city, address: address, building_name: building_name, phone_number: phone_number) 
+    return false if invalid?
+      order = Order.create(user_id: user_id, item_id: item_id)
+      Buyer.create(order_id: order.id, post_code: post_code, prefecture_id: prefecture_id, city: city, address: address, building_name: building_name, phone_number: phone_number)
   end
-  
   
 end
