@@ -1,8 +1,7 @@
 class Order < ApplicationRecord
-  class Order < ApplicationRecord
-    belongs_to :item
-    belongs_to :user
-    has_one :buyer
-  end
-  
+  belongs_to :item
+  belongs_to :user
+  has_one :buyer
 end
+  
+
