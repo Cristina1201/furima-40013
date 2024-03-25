@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, except: :index
   before_action :find_item, only: [:index, :create, :show]
+  before_action :check_order, only: [:index, :create]
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
@@ -15,7 +16,7 @@ class OrdersController < ApplicationController
        gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
        redirect_to root_path
     else
-      render  :index, status: :unprocessable_entity
+      render :index, status: :unprocessable_entity
     end
   end
 
@@ -28,7 +29,7 @@ class OrdersController < ApplicationController
   def find_item
     @item = Item.find(params[:item_id])
   end
-end
+
 
   def pay_item
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
@@ -38,3 +39,14 @@ end
       currency: 'jpy'
     )
   end
+
+  def check_order
+    if user_signed_in?
+      if @item.order.present? || current_user == @item.user
+        redirect_to root_path
+      end
+    else
+      redirect_to new_user_session_path
+    end
+  end
+end

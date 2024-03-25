@@ -20,7 +20,11 @@ class Item < ApplicationRecord
   validates :shipping_day_id, presence: true
   validates :price, presence: true, numericality: { in: 300..9999999, only_integer: true }
   validates :image, presence: true
-   
-validates :category_id, :condition_id, :postage_id, :prefecture_id, :shipping_day_id, numericality: { other_than: 1 , message: "can't be blank" } 
+
+     
+  validates :category_id, :condition_id, :postage_id, :prefecture_id, :shipping_day_id, numericality: { other_than: 1 , message: "can't be blank" } 
+
+  
+
 
 end

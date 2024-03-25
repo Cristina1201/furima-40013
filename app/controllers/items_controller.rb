@@ -24,7 +24,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if current_user != @item.user
+    if current_user != @item.user || @item.order.present?
       redirect_to root_path
     end
   end
@@ -45,6 +45,12 @@ class ItemsController < ApplicationController
       redirect_to root_path
     end
   end
+
+  def soldout
+    if @item.order.present?
+      redirect_to root_path
+    end
+  end
   
 
   private
@@ -56,5 +62,6 @@ class ItemsController < ApplicationController
   def find_item
     @item = Item.find(params[:id])
   end
+
 
  end
