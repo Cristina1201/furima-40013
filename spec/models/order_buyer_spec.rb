@@ -63,6 +63,19 @@ RSpec.describe OrderBuyer, type: :model do
         @order_buyer.valid?
         expect(@order_buyer.errors.full_messages).to include("Phone number should be 10 or 11 digits")
       end
+
+      it "phone_numberが9ケタ以下では購入できない" do
+        @order_buyer.phone_number = '12345678'
+        @order_buyer.valid?
+        expect(@order_buyer.errors.full_messages).to include("Phone number should be 10 or 11 digits")
+      end
+
+      it "phone_numberが12ケタ以上では購入できない" do
+        @order_buyer.phone_number = '123456789012'
+        @order_buyer.valid?
+        expect(@order_buyer.errors.full_messages).to include("Phone number should be 10 or 11 digits")
+      end
+
       it 'user_idが空では購入できない' do
         @order_buyer.user_id = ''
         @order_buyer.valid?

@@ -47,6 +47,7 @@ class ItemsController < ApplicationController
   end
 
   def soldout
+    @item = Item.find(params[:id])
     if @item.order.present?
       redirect_to root_path
     end
