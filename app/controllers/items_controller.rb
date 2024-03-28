@@ -24,7 +24,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if current_user != @item.user
+    if current_user != @item.user || @item.order.present?
       redirect_to root_path
     end
   end
@@ -45,16 +45,24 @@ class ItemsController < ApplicationController
       redirect_to root_path
     end
   end
+
+  def soldout
+    @item = Item.find(params[:id])
+    if @item.order.present?
+      redirect_to root_path
+    end
+  end
   
 
   private
 
   def item_params
-    params.require(:item).permit(:image, :item_name, :item_description , :category_id, :condition_id, :postage_id , :ship_from_location_id, :shipping_day_id , :price).merge(user_id: current_user.id)
+    params.require(:item).permit(:image, :item_name, :item_description , :category_id, :condition_id, :postage_id , :prefecture_id, :shipping_day_id , :price).merge(user_id: current_user.id)
   end
 
   def find_item
     @item = Item.find(params[:id])
   end
+
 
  end
